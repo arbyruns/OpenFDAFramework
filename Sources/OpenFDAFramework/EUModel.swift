@@ -8,65 +8,65 @@
 import Foundation
 
 // MARK: - Welcome
-struct EURecall: Codable {
-    let notifications: [EUNotification]
-    let totalPages, totalElements: Int
+public struct EURecall: Codable {
+    public let notifications: [EUNotification]
+    public let totalPages, totalElements: Int
 }
 
 // MARK: - Notification
-struct EUNotification: Codable, StatsRepresentable {
-    let notifID: Int
-    let ecValidationDate, reference: String
-    let notifyingCountry: GenericNotificationClassification
-    let subject: String
-    let productCategory, productType: GenericNotificationClassification
-    let notificationClassification: NotificationClassification
-    let riskDecision: RiskDecision
-    let published: Bool
-    let originCountries: [String]?
+public struct EUNotification: Codable, StatsRepresentable {
+    public let notifID: Int
+    public let ecValidationDate, reference: String
+    public let notifyingCountry: GenericNotificationClassification
+    public let subject: String
+    public let productCategory, productType: GenericNotificationClassification
+    public let notificationClassification: NotificationClassification
+    public let riskDecision: RiskDecision
+    public let published: Bool
+    public let originCountries: [String]?
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case notifID = "notifId"
         case ecValidationDate, reference, notifyingCountry, subject, productCategory, productType, notificationClassification, riskDecision, published, originCountries
     }
 
-    var dateToParse: String {
+    public var dateToParse: String {
         return ecValidationDate
     }
 
-    var location: String {
+    public var location: String {
         return notifyingCountry.description
     }
 
-    var risk: String {
+    public var risk: String {
         return riskDecision.description.rawValue
     }
 }
 
 // MARK: - NotificationClassification
-struct GenericNotificationClassification: Codable {
-    let id: Int
-    let description: String
+public struct GenericNotificationClassification: Codable {
+    public let id: Int
+    public let description: String
 }
 
-struct NotificationClassification: Codable {
-    let id: Int
-    let description: String
+public struct NotificationClassification: Codable {
+    public let id: Int
+    public let description: String
 }
 
-enum NotificationClassificationType: String, Codable {
+public enum NotificationClassificationType: String, Codable {
     case notificationForAttention = "information notification for attention"
     case alertNotification = "alert notification"
     case followUpNotification = "information notification for follow-up"
     case borderRejectionNotification = "border rejection notification"
 }
 
-struct RiskDecision: Codable {
-    let id: Int
-    let description: RiskDecisionType
+public struct RiskDecision: Codable {
+    public let id: Int
+    public let description: RiskDecisionType
 }
 
-@frozen enum RiskDecisionType: String, Codable {
+@frozen public enum RiskDecisionType: String, Codable {
     case potentiallySerious = "potentially serious"
     case serious = "serious"
     case potentialRisk = "potential risk"
@@ -74,7 +74,7 @@ struct RiskDecision: Codable {
     case noRisk = "no risk"
 }
 
-let euMockData: [EUNotification] = [
+public let euMockData: [EUNotification] = [
     EUNotification(notifID: 123456, ecValidationDate: "05-09-2023 10:15:30", reference: "2023.7890", notifyingCountry: GenericNotificationClassification(id: 24, description: "France"), subject: "Salmonella outbreak in imported tomatoes", productCategory: GenericNotificationClassification(id: 17239, description: "fresh produce"), productType: GenericNotificationClassification(id: 235, description: "Food"), notificationClassification: NotificationClassification(id: 87, description: ".alertNotification.description"), riskDecision: RiskDecision(id: 12323, description: .notSerious), published: true, originCountries: ["Spain", "Italy"]),
     EUNotification(notifID: 789012, ecValidationDate: "10-09-2023 14:20:45", reference: "2023.9021", notifyingCountry: GenericNotificationClassification(id: 12, description: "Germany"), subject: "Allergen alert: Peanut traces found in chocolate bars", productCategory: GenericNotificationClassification(id: 20456, description: "confectionery"), productType: GenericNotificationClassification(id: 154, description: "Food"), notificationClassification: NotificationClassification(id: 123, description: "borderRejectionNotification"), riskDecision: RiskDecision(id: 12323, description: .potentialRisk), published: true, originCountries: ["Belgium", "Netherlands"]),
     EUNotification(notifID: 345678, ecValidationDate: "15-09-2023 08:30:10", reference: "2023.10987", notifyingCountry: GenericNotificationClassification(id: 9, description: "United Kingdom"), subject: "Recall: Tainted milk bottles from a specific batch", productCategory: GenericNotificationClassification(id: 30987, description: "dairy products"), productType: GenericNotificationClassification(id: 543, description: "Food"), notificationClassification: NotificationClassification(id: 456, description: "followUpNotification"), riskDecision: RiskDecision(id: 12323, description: .potentiallySerious), published: true, originCountries: ["Ireland"]),
