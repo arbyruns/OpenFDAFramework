@@ -1,8 +1,8 @@
 //
-//  RASFFModel.swift
-//  OpenFDAShareData
+//  File.swift
+//  
 //
-//  Created by robevans on 8/16/23.
+//  Created by robevans on 9/4/23.
 //
 
 import Foundation
